@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PropPulse — Premium Property Deal Sourcing</title>
+  <meta name="description" content="Exclusive off-market property deals for serious investors. HMO, Buy-to-Let, Flips and Commercial. Register to access full deal packs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0A1628;
+      --navy-mid: #0e1f3a;
+      --navy-light: #152a4a;
+      --gold: #C9A84C;
+      --gold-dark: #a8893a;
+      --gold-light: #e8c96a;
+      --cream: #F7F5F0;
+      --cream-dim: rgba(247,245,240,0.65);
+      --cream-muted: rgba(247,245,240,0.4);
+      --green: #2D9B6F;
+      --white: #ffffff;
+      --gray-100: #f4f4f2;
+      --gray-200: #e8e7e3;
+      --gray-400: #9a9893;
+      --gray-600: #6b6966;
+      --text: #1a1a18;
+      --text-muted: #6b6966;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--navy);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--cream); font-weight: 400; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--cream-dim);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--navy) !important;
+      font-weight: 600 !important;
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: background 0.15s !important;
+    }
+    .nav-cta:hover { background: var(--gold-dark) !important; color: var(--navy) !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--cream);
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -120px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,155,111,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(34px, 4vw, 52px);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--cream-dim);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 440px;
+    }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 24px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-primary:hover { background: var(--gold-dark); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-ghost {
+      display: inline-block;
+      background: transparent;
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      padding: 13px 24px;
+      border-radius: 8px;
+      border: 1px solid rgba(247,245,240,0.22);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Hero sign-up form */
+    .hero-signup {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .hero-signup h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+    .hero-signup p {
+      font-size: 13px;
+      color: var(--cream-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .form-group { margin-bottom: 12px; }
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+      margin-bottom: 5px;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 11px 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(247,245,240,0.15);
+      border-radius: 8px;
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-group input::placeholder { color: var(--cream-muted); }
+    .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+    .form-group select { appearance: none; cursor: pointer; }
+    .form-group select option { background: var(--navy); color: var(--cream); }
+
+    .form-note {
+      font-size: 11px;
+      color: var(--cream-muted);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+    .form-note a { color: var(--gold); text-decoration: none; }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(201,168,76,0.12);
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .stat {
+      padding: 1.5rem 2rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--cream-muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .section {
+      padding: 5rem 2rem;
+    }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3vw, 38px);
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .step {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      padding: 1.75rem;
+      position: relative;
+    }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--gray-200);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .step-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(201,168,76,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 20px;
+    }
+    .step h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .step p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .step-badge {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(201,168,76,0.12);
+      color: var(--gold-dark);
+    }
+
+    /* ── DEALS SECTION ── */
+    .deals-section {
+      background: var(--gray-100);
+      padding: 5rem 2rem;
+    }
+    .deals-inner { max-width: 1100px; margin: 0 auto; }
+
+    .deals-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+    }
+    .filter-btn {
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--gray-200);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      background: var(--white);
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { border-color: var(--gold); color: var(--navy); }
+    .filter-btn.active {
+      background: var(--navy);
+      color: var(--gold);
+      border-color: var(--navy);
+    }
+
+    .deals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 18px;
+    }
+
+    /* ── DEAL CARD ── */
+    .deal-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.15s, transform 0.15s;
+      cursor: pointer;
+    }
+    .deal-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+
+    .deal-thumb {
+      height: 150px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .deal-thumb.t-hmo { background: linear-gradient(135deg, #0d1f3a 0%, #0a1628 100%); }
+    .deal-thumb.t-btl { background: linear-gradient(135deg, #122010 0%, #0a1a0a 100%); }
+    .deal-thumb.t-flip { background: linear-gradient(135deg, #200d12 0%, #1a0a0a 100%); }
+    .deal-thumb.t-comm { background: linear-gradient(135deg, #0d1220 0%, #0a0d1a 100%); }
+
+    .deal-thumb-icon {
+      font-size: 64px;
+      opacity: 0.08;
+      color: #fff;
+      user-select: none;
+    }
+
+    .deal-type-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .b-hmo { background: rgba(201,168,76,0.2); color: #C9A84C; }
+    .b-btl { background: rgba(45,155,111,0.2); color: #2D9B6F; }
+    .b-flip { background: rgba(200,90,90,0.2); color: #e07070; }
+    .b-comm { background: rgba(100,140,230,0.2); color: #8aabf0; }
+
+    /* 🔒 LOCK OVERLAY */
+    .deal-lock-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,22,40,0.75);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .deal-card:hover .deal-lock-overlay { opacity: 1; }
+    .deal-lock-overlay .lock-icon { font-size: 28px; color: var(--gold); }
+    .deal-lock-overlay span {
+      font-size: 12px;
+      color: var(--cream);
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .deal-body { padding: 16px; }
+
+    .deal-area {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 2px;
+    }
+    .deal-loc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .deal-loc-icon { font-size: 11px; }
+
+    /* Blurred address block */
+    .deal-address-gated {
+      background: var(--gray-100);
+      border: 1px dashed var(--gray-200);
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .deal-address-blurred {
+      font-size: 13px;
+      color: var(--text);
+      filter: blur(5px);
+      user-select: none;
+      flex: 1;
+    }
+    .deal-address-lock { font-size: 13px; color: var(--gold); }
+
+    .deal-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .deal-metric {
+      background: var(--gray-100);
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .deal-metric-val {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .deal-metric-val.gold { color: var(--gold-dark); }
+    .deal-metric-val.green { color: var(--green); }
+    .deal-metric-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    /* Yield bar */
+    .yield-bar-wrap { margin-bottom: 14px; }
+    .yield-bar-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .yield-track {
+      height: 4px;
+      background: var(--gray-200);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .yield-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 2px;
+      width: 0%;
+      transition: width 1s ease 0.3s;
+    }
+
+    .deal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid var(--gray-200);
+    }
+    .deal-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .deal-cta {
+      background: var(--navy);
+      color: var(--gold);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.15s;
+    }
+    .deal-cta:hover { background: var(--navy-light); }
+
+    /* ── NEWSLETTER SECTION ── */
+    .newsletter-section {
+      background: var(--navy);
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter-section::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .newsletter-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .newsletter-inner .section-title { color: var(--cream); }
+    .newsletter-inner .section-sub { color: var(--cream-dim); margin: 0 auto 2rem; }
+
+    .newsletter-perks {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .newsletter-perk {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--cream-dim);
+    }
+    .newsletter-perk-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      max-width: 500px;
+      margin: 0 auto 1rem;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 13px 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(247,245,240,0.15);
+      border-radius: 8px;
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .newsletter-form input::placeholder { color: var(--cream-muted); }
+    .newsletter-form input:focus { border-color: var(--gold); }
+    .newsletter-note {
+      font-size: 11px;
+      color: var(--cream-muted);
+      line-height: 1.5;
+    }
+
+    /* ── WHY REGISTER ── */
+    .why-section { background: var(--white); padding: 5rem 2rem; }
+    .why-inner { max-width: 1100px; margin: 0 auto; }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .why-left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3vw, 36px);
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+    .why-left h2 em { color: var(--gold); font-style: normal; }
+    .why-left p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .why-features { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .why-feature {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .why-feature-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(201,168,76,0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      color: var(--gold-dark);
+    }
+    .why-feature-text h5 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+    .why-feature-text p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    .why-right {
+      background: var(--navy);
+      border-radius: 18px;
+      padding: 2.5rem;
+      border: 1px solid rgba(201,168,76,0.2);
+    }
+    .why-right h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+    .why-right .sub {
+      font-size: 13px;
+      color: var(--cream-muted);
+      margin-bottom: 1.75rem;
+      line-height: 1.5;
+    }
+    .register-success {
+      display: none;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .register-success .tick {
+      font-size: 40px;
+      margin-bottom: 0.75rem;
+    }
+    .register-success h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+    .register-success p {
+      font-size: 13px;
+      color: var(--cream-muted);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060e1a;
+      padding: 3rem 2rem 2rem;
+      border-top: 1px solid rgba(201,168,76,0.12);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+    }
+    .footer-brand .logo { font-size: 20px; display: inline-block; margin-bottom: 0.75rem; }
+    .footer-brand p {
+      font-size: 13px;
+      color: var(--cream-muted);
+      line-height: 1.65;
+      max-width: 280px;
+    }
+    .footer-col h5 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul a {
+      font-size: 13px;
+      color: var(--cream-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-col ul a:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--cream-muted);
+    }
+    .footer-legal {
+      display: flex;
+      gap: 16px;
+    }
+    .footer-legal a {
+      font-size: 12px;
+      color: var(--cream-muted);
+      text-decoration: none;
+    }
+    .footer-legal a:hover { color: var(--gold); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 540px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-header {
+      background: var(--navy);
+      padding: 1.75rem 1.75rem 1.5rem;
+      border-radius: 16px 16px 0 0;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.25rem; right: 1.25rem;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: var(--cream);
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+    .modal-header p { font-size: 13px; color: var(--cream-muted); }
+    .modal-body { padding: 1.75rem; }
+    .modal-gate-notice {
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 1.5rem;
+      font-size: 13px;
+      color: var(--navy);
+      line-height: 1.55;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .modal-gate-notice .lock { font-size: 16px; flex-shrink: 0; }
+
+    .modal-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+    .modal-metric {
+      background: var(--gray-100);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+    .modal-metric-val {
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      font-family: 'Playfair Display', serif;
+    }
+    .modal-metric-val.gold { color: var(--gold-dark); }
+    .modal-metric-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    .modal-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .modal-fee-notice {
+      background: var(--navy);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 1.5rem;
+      font-size: 13px;
+      color: var(--cream-dim);
+      line-height: 1.55;
+    }
+    .modal-fee-notice strong { color: var(--gold); }
+    .modal-actions { display: flex; gap: 10px; }
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      border: none;
+      transition: all 0.15s;
+    }
+    .modal-btn.primary { background: var(--gold); color: var(--navy); }
+    .modal-btn.primary:hover { background: var(--gold-dark); }
+    .modal-btn.secondary {
+      background: var(--gray-100);
+      color: var(--navy);
+      border: 1px solid var(--gray-200);
+    }
+    .modal-btn.secondary:hover { background: var(--gray-200); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--navy);
+      color: var(--cream);
+      padding: 14px 20px;
+      border-radius: 10px;
+      border-left: 4px solid var(--gold);
+      font-size: 14px;
+      z-index: 1000;
+      transform: translateX(120%);
+      transition: transform 0.3s ease;
+      max-width: 320px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .toast.show { transform: translateX(0); }
+    .toast strong { color: var(--gold); display: block; margin-bottom: 2px; font-size: 13px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0; right: 0;
+        background: var(--navy);
+        padding: 1.5rem 2rem;
+        gap: 16px;
+        border-bottom: 1px solid rgba(201,168,76,0.15);
+      }
+      nav { position: relative; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .newsletter-form { flex-direction: column; }
+      .deals-grid { grid-template-columns: 1fr; }
+      .modal-metrics { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat { padding: 1rem; }
+      .hero { padding: 3rem 1.25rem 3rem; }
+      .section, .deals-section, .newsletter-section, .why-section { padding: 3.5rem 1.25rem; }
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+    .fade-up-delay-1 { animation-delay: 0.1s; }
+    .fade-up-delay-2 { animation-delay: 0.2s; }
+    .fade-up-delay-3 { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">Prop<span>Pulse</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#deals">Live Deals</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
+      <li><a href="#register" class="nav-cta">Register Free</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text fade-up">
+        <div class="hero-eyebrow">Exclusive Deal Sourcing</div>
+        <h1>Handpicked <em>high-yield</em><br/>property deals,<br/>delivered to you.</h1>
+        <p class="hero-sub">PropPulse sources off-market HMO, buy-to-let, flip, and commercial opportunities — packaged and ready to present to your investment criteria.</p>
+        <div class="hero-actions">
+          <a href="#deals" class="btn-primary">Browse Live Deals</a>
+          <a href="#how-it-works" class="btn-ghost">How it works →</a>
+        </div>
+      </div>
+
+      <div class="hero-signup fade-up fade-up-delay-2" id="register">
+        <h3>Register for free access</h3>
+        <p>Create your investor profile to unlock full deal addresses, financial packs, and sourcing agreements.</p>
+        <div class="form-group">
+          <label>Full name</label>
+          <input type="text" id="reg-name" placeholder="e.g. James Thornton" />
+        </div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" id="reg-email" placeholder="james@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Investor type</label>
+          <select id="reg-type">
+            <option value="">Select your profile</option>
+            <option>First-time investor</option>
+            <option>Portfolio landlord (1–5 properties)</option>
+            <option>Portfolio landlord (6+ properties)</option>
+            <option>Cash buyer</option>
+            <option>Sourcer / Broker</option>
+            <option>SIPP / SSAS investor</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Investment budget</label>
+          <select id="reg-budget">
+            <option value="">Select range</option>
+            <option>Under £100k</option>
+            <option>£100k – £250k</option>
+            <option>£250k – £500k</option>
+            <option>£500k+</option>
+          </select>
+        </div>
+        <button class="btn-primary" style="width:100%;margin-top:4px" onclick="handleRegister()">
+          Unlock Full Deal Access →
+        </button>
+        <p class="form-note">By registering you agree to our <a href="#">sourcing terms</a>. A finder's fee applies on all completed deals. No spam — ever.</p>
+        <div class="register-success" id="register-success">
+          <div class="tick">✅</div>
+          <h4>You're on the list.</h4>
+          <p>Check your inbox — full deal access and your first exclusive pack are on the way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat">
+        <span class="stat-num">47</span>
+        <span class="stat-label">Active Deals</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">8.4%</span>
+        <span class="stat-label">Avg Gross Yield</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">£2.1M</span>
+        <span class="stat-label">Deals Packaged</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3–5%</span>
+        <span class="stat-label">Sourcing Fee</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how-it-works">
+    <div class="section-inner">
+      <div class="section-eyebrow">The Process</div>
+      <h2 class="section-title">From sourcing to completion,<br/>we handle it all.</h2>
+      <p class="section-sub">PropPulse does the legwork — you choose the deal that fits your portfolio, sign the sourcing agreement, and we handle the rest.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-icon">🔍</div>
+          <h4>We source the deal</h4>
+          <p>Every property is sourced off-market, analysed for yield, cashflow, and exit potential before it ever reaches the platform.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <span class="step-badge">Free</span>
+          <div class="step-icon">📋</div>
+          <h4>You register</h4>
+          <p>Create your investor profile in 60 seconds. Tell us your budget and investment goals so we match you to the right deals.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-icon">📁</div>
+          <h4>Sign & unlock</h4>
+          <p>Once you sign our simple sourcing agreement, the full deal pack is released — address, comparables, legal pack, and photos.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-icon">🏡</div>
+          <h4>Complete & invest</h4>
+          <p>We support you through to exchange. Our finder's fee is paid on completion — you only pay when the deal is done.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEALS -->
+  <section class="deals-section" id="deals">
+    <div class="deals-inner">
+      <div class="deals-header">
+        <div>
+          <div class="section-eyebrow">Live Opportunities</div>
+          <h2 class="section-title" style="margin-bottom:0">Current Deal Pipeline</h2>
+        </div>
+        <a href="#register" class="btn-primary">Unlock Full Details →</a>
+      </div>
+
+      <div class="filter-row" id="filter-row">
+        <button class="filter-btn active" onclick="filterDeals('all',this)">All Deals</button>
+        <button class="filter-btn" onclick="filterDeals('hmo',this)">HMO</button>
+        <button class="filter-btn" onclick="filterDeals('btl',this)">Buy-to-Let</button>
+        <button class="filter-btn" onclick="filterDeals('flip',this)">Flip</button>
+        <button class="filter-btn" onclick="filterDeals('comm',this)">Commercial</button>
+      </div>
+
+      <div class="deals-grid" id="deals-grid"></div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section" id="newsletter">
+    <div class="newsletter-inner">
+      <div class="section-eyebrow" style="color:var(--gold)">Stay Ahead</div>
+      <h2 class="section-title">Never miss a deal.</h2>
+      <p class="section-sub">Join investors who get exclusive deal alerts, market insights, and off-market opportunities straight to their inbox — before they go public.</p>
+
+      <div class="newsletter-perks">
+        <div class="newsletter-perk"><div class="newsletter-perk-dot"></div>Weekly deal alerts</div>
+        <div class="newsletter-perk"><div class="newsletter-perk-dot"></div>Off-market first access</div>
+        <div class="newsletter-perk"><div class="newsletter-perk-dot"></div>Market reports</div>
+        <div class="newsletter-perk"><div class="newsletter-perk-dot"></div>No spam, ever</div>
+      </div>
+
+      <div class="newsletter-form">
+        <input type="email" id="nl-email" placeholder="Your email address" />
+        <button class="btn-primary" onclick="handleNewsletter()">Subscribe Free</button>
+      </div>
+      <p class="newsletter-note">Join 340+ investors already on the list. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+  <!-- WHY REGISTER -->
+  <section class="why-section">
+    <div class="why-inner">
+      <div class="why-grid">
+        <div class="why-left">
+          <div class="section-eyebrow">Why PropPulse</div>
+          <h2>The deals are <em>packaged</em>.<br/>The returns are real.</h2>
+          <p>We don't just find properties — we analyse, package, and present each deal so you can make confident investment decisions faster.</p>
+          <ul class="why-features">
+            <li class="why-feature">
+              <div class="why-feature-icon">🔒</div>
+              <div class="why-feature-text">
+                <h5>Protected deal flow</h5>
+                <p>Full addresses are only released after a signed sourcing agreement — protecting both parties.</p>
+              </div>
+            </li>
+            <li class="why-feature">
+              <div class="why-feature-icon">📊</div>
+              <div class="why-feature-text">
+                <h5>Pre-analysed financials</h5>
+                <p>Every deal includes a cashflow model, yield calculation, and 5-year projection.</p>
+              </div>
+            </li>
+            <li class="why-feature">
+              <div class="why-feature-icon">⚡</div>
+              <div class="why-feature-text">
+                <h5>Off-market advantage</h5>
+                <p>Most deals are sourced before they hit Rightmove — giving you first access to the best prices.</p>
+              </div>
+            </li>
+            <li class="why-feature">
+              <div class="why-feature-icon">✅</div>
+              <div class="why-feature-text">
+                <h5>No fee until completion</h5>
+                <p>Our sourcing fee is only due when the deal exchanges — zero risk to register and review.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="why-right" id="register2">
+          <h3>Join the investor list</h3>
+          <p class="sub">Free to register. Full deal pack unlocked the moment you sign our sourcing terms.</p>
+          <div class="form-group">
+            <label>Your name</label>
+            <input type="text" id="reg2-name" placeholder="Full name" style="background:rgba(255,255,255,0.06);border:1px solid rgba(247,245,240,0.15);color:var(--cream)" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="reg2-email" placeholder="email@example.com" style="background:rgba(255,255,255,0.06);border:1px solid rgba(247,245,240,0.15);color:var(--cream)" />
+          </div>
+          <div class="form-group">
+            <label>Phone (optional)</label>
+            <input type="tel" id="reg2-phone" placeholder="+44 7700 000000" style="background:rgba(255,255,255,0.06);border:1px solid rgba(247,245,240,0.15);color:var(--cream)" />
+          </div>
+          <button class="btn-primary" style="width:100%;margin-top:4px" onclick="handleRegister2()">
+            Get Free Access →
+          </button>
+          <p class="form-note" style="color:var(--cream-muted);margin-top:10px;font-size:11px;line-height:1.5">
+            A sourcing fee of 2–3% applies on completed deals. <a href="#" style="color:var(--gold)">Read our terms →</a>
+          </p>
+          <div class="register-success" id="register-success2">
+            <div class="tick">✅</div>
+            <h4>Welcome aboard.</h4>
+            <p style="color:var(--cream-muted);font-size:13px;line-height:1.6">Your investor profile is live. Check your email for your first deal pack.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="logo">Prop<span>Pulse</span></a>
+          <p>Premium off-market property deal sourcing for serious UK investors. Packaged. Analysed. Ready to complete.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Platform</h5>
+          <ul>
+            <li><a href="#deals">Live Deals</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#newsletter">Newsletter</a></li>
+            <li><a href="#register">Register</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Legal</h5>
+          <ul>
+            <li><a href="#">Sourcing Terms</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 PropPulse. Property sourcing services. A finder's fee is payable on all completed introductions.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DEAL MODAL -->
+  <div class="modal-overlay" id="deal-modal" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <h2 id="modal-title">Deal Detail</h2>
+        <p id="modal-subtitle"></p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-gate-notice">
+          <span class="lock">🔒</span>
+          <span>Full address and legal pack are released after you <strong>register free</strong> and sign our sourcing agreement. A sourcing fee applies on completion.</span>
+        </div>
+        <div class="modal-metrics" id="modal-metrics"></div>
+        <p class="modal-desc" id="modal-desc"></p>
+        <div class="modal-fee-notice">
+          <strong>Finder's fee notice:</strong> By progressing this deal you agree that a sourcing fee of <strong>2–3% of the purchase price</strong> is payable to PropPulse on exchange of contracts. Full terms sent on registration.
+        </div>
+        <div class="modal-actions">
+          <button class="modal-btn secondary" onclick="closeModal()">Back to deals</button>
+          <button class="modal-btn primary" onclick="closeModal(); smoothTo('register')">Register to unlock full pack →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    <strong id="toast-title"></strong>
+    <span id="toast-msg"></span>
+  </div>
+
+  <script>
+    // ── DEALS DATA ──
+    // To add a new deal: copy one object and paste below, fill in the fields.
+    // type: 'hmo' | 'btl' | 'flip' | 'comm'
+    // areaLabel: shown publicly. Full address is NEVER shown on the site.
+    const deals = [
+      {
+        type: 'hmo',
+        badge: 'HMO',
+        areaLabel: 'M14 — Fallowfield, Manchester',
+        price: '£195,000',
+        yield: 9.2,
+        roi: 14.1,
+        cashflow: '+£820/mo',
+        rooms: '6 beds',
+        icon: '🏢',
+        desc: 'Fully tenanted 6-bed HMO. All en-suite rooms. Article 4 compliant. Strong Manchester student demand. Minimal works required. New EPC B rating.',
+        highlight: 'Top Yield'
+      },
+      {
+        type: 'btl',
+        badge: 'Buy-to-Let',
+        areaLabel: 'LS6 — Headingley, Leeds',
+        price: '£185,000',
+        yield: 7.8,
+        roi: 10.2,
+        cashflow: '+£550/mo',
+        rooms: '3 beds',
+        icon: '🏠',
+        desc: 'Terraced BTL in a strong rental corridor. Long-term tenants in situ at £1,200/month. No chain. Ideal portfolio addition for hands-off investors.',
+        highlight: null
+      },
+      {
+        type: 'flip',
+        badge: 'Flip',
+        areaLabel: 'B13 — Moseley, Birmingham',
+        price: '£140,000',
+        yield: null,
+        roi: 22.5,
+        cashflow: '£38k profit',
+        rooms: '4 beds',
+        icon: '🔨',
+        desc: 'Below-market purchase. GDV estimated at £210k+ post-refurb. Light-to-medium works, structural survey complete. 12-week project timeline.',
+        highlight: 'High ROI'
+      },
+      {
+        type: 'hmo',
+        badge: 'HMO',
+        areaLabel: 'NG1 — City Centre, Nottingham',
+        price: '£230,000',
+        yield: 10.1,
+        roi: 15.8,
+        cashflow: '+£1,040/mo',
+        rooms: '7 beds',
+        icon: '🏢',
+        desc: 'Article 4 compliant 7-bed HMO in prime student zone. One of the best yields in the pipeline. New boiler 2024. All licences in place.',
+        highlight: 'Best Performer'
+      },
+      {
+        type: 'comm',
+        badge: 'Commercial',
+        areaLabel: 'S1 — City Centre, Sheffield',
+        price: '£310,000',
+        yield: 8.5,
+        roi: 11.4,
+        cashflow: '+£2,200/mo',
+        rooms: 'Office / Retail',
+        icon: '🏗️',
+        desc: 'Commercial unit with 5-year lease. Anchor tenant in logistics. Upward-only rent review clause. Strong covenant. Suitable for SIPP/SSAS purchasing.',
+        highlight: null
+      },
+      {
+        type: 'btl',
+        badge: 'Buy-to-Let',
+        areaLabel: 'L8 — Toxteth, Liverpool',
+        price: '£112,000',
+        yield: 9.0,
+        roi: 12.3,
+        cashflow: '+£480/mo',
+        rooms: '2 beds',
+        icon: '🏠',
+        desc: 'Entry-level BTL at exceptional yield for the price point. Ideal for first-time investors. Tenant in situ at £840pcm. No refurb required.',
+        highlight: null
+      }
+    ];
+
+    let activeFilter = 'all';
+
+    function yieldWidth(y) {
+      if (!y) return 72;
+      return Math.min(Math.round((y / 12) * 100), 100);
+    }
+
+    function renderDeals() {
+      const grid = document.getElementById('deals-grid');
+      const filtered = activeFilter === 'all' ? deals : deals.filter(d => d.type === activeFilter);
+      grid.innerHTML = '';
+
+      filtered.forEach((deal, i) => {
+        const globalIdx = deals.indexOf(deal);
+        const card = document.createElement('div');
+        card.className = 'deal-card';
+        card.onclick = () => openModal(globalIdx);
+
+        card.innerHTML = `
+          <div class="deal-thumb t-${deal.type}">
+            <span class="deal-type-badge b-${deal.type}">${deal.badge}</span>
+            ${deal.highlight ? `<span style="position:absolute;top:12px;right:12px;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;background:rgba(201,168,76,0.9);color:#0A1628;padding:3px 10px;border-radius:20px;">${deal.highlight}</span>` : ''}
+            <div class="deal-thumb-icon">${deal.icon}</div>
+            <div class="deal-lock-overlay">
+              <span class="lock-icon">🔒</span>
+              <span>Register to unlock full address</span>
+            </div>
+          </div>
+          <div class="deal-body">
+            <div class="deal-area">${deal.areaLabel}</div>
+            <div class="deal-loc"><span class="deal-loc-icon">📍</span>${deal.rooms}</div>
+            <div class="deal-address-gated">
+              <span class="deal-address-lock">🔒</span>
+              <span class="deal-address-blurred">14 Victoria Terrace, ${deal.areaLabel}</span>
+            </div>
+            <div class="deal-metrics">
+              <div class="deal-metric">
+                <span class="deal-metric-val gold">${deal.yield ? deal.yield + '%' : '—'}</span>
+                <span class="deal-metric-label">Yield</span>
+              </div>
+              <div class="deal-metric">
+                <span class="deal-metric-val green">${deal.roi}%</span>
+                <span class="deal-metric-label">ROI</span>
+              </div>
+              <div class="deal-metric">
+                <span class="deal-metric-val">${deal.cashflow}</span>
+                <span class="deal-metric-label">Cashflow</span>
+              </div>
+            </div>
+            <div class="yield-bar-wrap">
+              <div class="yield-bar-header">
+                <span>Yield strength</span>
+                <span>${deal.yield ? deal.yield + '%' : 'Capital gain play'}</span>
+              </div>
+              <div class="yield-track">
+                <div class="yield-fill" data-target="${yieldWidth(deal.yield)}" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="deal-footer">
+              <span class="deal-price">${deal.price}</span>
+              <button class="deal-cta" onclick="event.stopPropagation();openModal(${globalIdx})">View full deal →</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      setTimeout(() => {
+        document.querySelectorAll('.yield-fill').forEach(el => {
+          el.style.width = el.dataset.target + '%';
+        });
+      }, 200);
+    }
+
+    function filterDeals(type, btn) {
+      activeFilter = type;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderDeals();
+    }
+
+    function openModal(i) {
+      const deal = deals[i];
+      document.getElementById('modal-title').textContent = deal.areaLabel;
+      document.getElementById('modal-subtitle').textContent = deal.badge + ' · ' + deal.rooms + ' · ' + deal.price;
+      document.getElementById('modal-desc').textContent = deal.desc;
+      document.getElementById('modal-metrics').innerHTML = `
+        <div class="modal-metric">
+          <span class="modal-metric-val gold">${deal.yield ? deal.yield + '%' : '—'}</span>
+          <span class="modal-metric-label">Gross Yield</span>
+        </div>
+        <div class="modal-metric">
+          <span class="modal-metric-val">${deal.roi}%</span>
+          <span class="modal-metric-label">ROI</span>
+        </div>
+        <div class="modal-metric">
+          <span class="modal-metric-val">${deal.cashflow}</span>
+          <span class="modal-metric-label">Cashflow</span>
+        </div>
+      `;
+      document.getElementById('deal-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('deal-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function showToast(title, msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toast-title').textContent = title;
+      document.getElementById('toast-msg').textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 4000);
+    }
+
+    function handleRegister() {
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const type = document.getElementById('reg-type').value;
+      const budget = document.getElementById('reg-budget').value;
+      if (!name || !email || !type || !budget) {
+        showToast('⚠️ Missing info', 'Please fill in all fields to continue.');
+        return;
+      }
+      // 👉 CONNECT YOUR EMAIL SERVICE HERE (e.g. Mailchimp, ConvertKit, Formspree)
+      // fetch('/api/register', { method: 'POST', body: JSON.stringify({name, email, type, budget}) })
+      document.getElementById('register').querySelectorAll('.form-group, button, .form-note').forEach(el => el.style.display = 'none');
+      document.getElementById('register').querySelector('h3').style.display = 'none';
+      document.getElementById('register').querySelector('p').style.display = 'none';
+      document.getElementById('register-success').style.display = 'block';
+      showToast('🎉 Welcome!', 'Your investor profile is live. Check your inbox.');
+    }
+
+    function handleRegister2() {
+      const name = document.getElementById('reg2-name').value.trim();
+      const email = document.getElementById('reg2-email').value.trim();
+      if (!name || !email) {
+        showToast('⚠️ Missing info', 'Please enter your name and email.');
+        return;
+      }
+      // 👉 CONNECT YOUR EMAIL SERVICE HERE
+      document.getElementById('register2').querySelectorAll('.form-group, button, .form-note').forEach(el => el.style.display = 'none');
+      document.getElementById('register2').querySelector('h3').style.display = 'none';
+      document.getElementById('register2').querySelector('.sub').style.display = 'none';
+      document.getElementById('register-success2').style.display = 'block';
+      showToast('🎉 Welcome!', 'Your investor profile is live. Check your inbox.');
+    }
+
+    function handleNewsletter() {
+      const email = document.getElementById('nl-email').value.trim();
+      if (!email || !email.includes('@')) {
+        showToast('⚠️ Invalid email', 'Please enter a valid email address.');
+        return;
+      }
+      // 👉 CONNECT YOUR NEWSLETTER SERVICE HERE (Mailchimp, ConvertKit, Beehiiv etc.)
+      document.getElementById('nl-email').value = '';
+      showToast('✅ Subscribed!', 'You\'re on the list. First deal alert incoming.');
+    }
+
+    function smoothTo(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Mobile nav
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('nav-links').classList.toggle('mobile-open');
+    });
+
+    // Escape key closes modal
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Init
+    renderDeals();
+  </script>
+</body>
+</html>
