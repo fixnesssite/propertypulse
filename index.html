@@ -1112,7 +1112,7 @@
         <div class="register-success" id="register-success">
           <div class="tick">✅</div>
           <h4>You're on the list.</h4>
-          <p>Check your inbox — full deal access and your first exclusive pack are on the way.</p>
+          <p>We'll email you the moment new deals go live — no spam, ever.</p>
         </div>
       </div>
     </div>
@@ -1286,7 +1286,7 @@
           <div class="register-success" id="register-success2">
             <div class="tick">✅</div>
             <h4>Welcome aboard.</h4>
-            <p style="color:var(--cream-muted);font-size:13px;line-height:1.6">Your investor profile is live. Check your email for your first deal pack.</p>
+            <p style="color:var(--cream-muted);font-size:13px;line-height:1.6">You're on the investor list. We'll email you as soon as we have deals ready to share.</p>
           </div>
         </div>
       </div>
@@ -1392,7 +1392,7 @@
     let activeFilter = 'all';
 
     // ── FORMSPREE CONFIG ──
-    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xnjkarob';
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mvzjpnpg';
 
     // Shared helper: sends form data to Formspree and returns true/false for success.
     async function submitToFormspree(data) {
@@ -1572,7 +1572,7 @@
       document.getElementById('register').querySelector('h3').style.display = 'none';
       document.getElementById('register').querySelector('p').style.display = 'none';
       document.getElementById('register-success').style.display = 'block';
-      showToast('🎉 Welcome!', 'Your investor profile is live. Check your inbox.');
+      showToast('🎉 Welcome!', "You're on the list. We'll email you when new deals go live.");
     }
 
     async function handleRegister2() {
@@ -1607,7 +1607,7 @@
       document.getElementById('register2').querySelector('h3').style.display = 'none';
       document.getElementById('register2').querySelector('.sub').style.display = 'none';
       document.getElementById('register-success2').style.display = 'block';
-      showToast('🎉 Welcome!', 'Your investor profile is live. Check your inbox.');
+      showToast('🎉 Welcome!', "You're on the list. We'll email you when new deals go live.");
     }
 
     async function handleNewsletter() {
@@ -1636,7 +1636,7 @@
       }
 
       document.getElementById('nl-email').value = '';
-      showToast('✅ Subscribed!', 'You\'re on the list. First deal alert incoming.');
+      showToast('✅ Subscribed!', "You're on the list. We'll send alerts as soon as we have deals to share.");
     }
 
     function smoothTo(id) {
