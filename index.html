@@ -200,6 +200,7 @@
     }
     .btn-primary:hover { background: var(--gold-dark); }
     .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
 
     .btn-ghost {
       display: inline-block;
@@ -1104,7 +1105,7 @@
             <option>£500k+</option>
           </select>
         </div>
-        <button class="btn-primary" style="width:100%;margin-top:4px" onclick="handleRegister()">
+        <button class="btn-primary" id="reg-submit-btn" style="width:100%;margin-top:4px" onclick="handleRegister()">
           Unlock Full Deal Access →
         </button>
         <p class="form-note">By registering you agree to our <a href="#">sourcing terms</a>. A finder's fee applies on all completed deals. No spam — ever.</p>
@@ -1215,7 +1216,7 @@
 
       <div class="newsletter-form">
         <input type="email" id="nl-email" placeholder="Your email address" />
-        <button class="btn-primary" onclick="handleNewsletter()">Subscribe Free</button>
+        <button class="btn-primary" id="nl-submit-btn" onclick="handleNewsletter()">Subscribe Free</button>
       </div>
       <p class="newsletter-note">Free to join. Deal alerts sent as we source them. Unsubscribe anytime.</p>
     </div>
@@ -1276,7 +1277,7 @@
             <label>Phone (optional)</label>
             <input type="tel" id="reg2-phone" placeholder="+44 7700 000000" style="background:rgba(255,255,255,0.06);border:1px solid rgba(247,245,240,0.15);color:var(--cream)" />
           </div>
-          <button class="btn-primary" style="width:100%;margin-top:4px" onclick="handleRegister2()">
+          <button class="btn-primary" id="reg2-submit-btn" style="width:100%;margin-top:4px" onclick="handleRegister2()">
             Get Free Access →
           </button>
           <p class="form-note" style="color:var(--cream-muted);margin-top:10px;font-size:11px;line-height:1.5">
@@ -1389,6 +1390,27 @@
     const deals = [];
 
     let activeFilter = 'all';
+
+    // ── FORMSPREE CONFIG ──
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xnjkarob';
+
+    // Shared helper: sends form data to Formspree and returns true/false for success.
+    async function submitToFormspree(data) {
+      try {
+        const response = await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        return response.ok;
+      } catch (err) {
+        console.error('Formspree submission error:', err);
+        return false;
+      }
+    }
 
     function yieldWidth(y) {
       if (!y) return 72;
@@ -1516,7 +1538,7 @@
       setTimeout(() => t.classList.remove('show'), 4000);
     }
 
-    function handleRegister() {
+    async function handleRegister() {
       const name = document.getElementById('reg-name').value.trim();
       const email = document.getElementById('reg-email').value.trim();
       const type = document.getElementById('reg-type').value;
@@ -1525,8 +1547,27 @@
         showToast('⚠️ Missing info', 'Please fill in all fields to continue.');
         return;
       }
-      // 👉 CONNECT YOUR EMAIL SERVICE HERE (https://formspree.io/f/xnjkarob)
-      // fetch('/api/register', { method: 'POST', body: JSON.stringify({name, email, type, budget}) })
+
+      const btn = document.getElementById('reg-submit-btn');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      const ok = await submitToFormspree({
+        form: 'Hero Register',
+        name,
+        email,
+        investorType: type,
+        budget
+      });
+
+      if (!ok) {
+        showToast('⚠️ Something went wrong', 'Please try again, or email us directly.');
+        btn.disabled = false;
+        btn.textContent = originalText;
+        return;
+      }
+
       document.getElementById('register').querySelectorAll('.form-group, button, .form-note').forEach(el => el.style.display = 'none');
       document.getElementById('register').querySelector('h3').style.display = 'none';
       document.getElementById('register').querySelector('p').style.display = 'none';
@@ -1534,14 +1575,34 @@
       showToast('🎉 Welcome!', 'Your investor profile is live. Check your inbox.');
     }
 
-    function handleRegister2() {
+    async function handleRegister2() {
       const name = document.getElementById('reg2-name').value.trim();
       const email = document.getElementById('reg2-email').value.trim();
+      const phone = document.getElementById('reg2-phone').value.trim();
       if (!name || !email) {
         showToast('⚠️ Missing info', 'Please enter your name and email.');
         return;
       }
-      // 👉 CONNECT YOUR EMAIL SERVICE HERE
+
+      const btn = document.getElementById('reg2-submit-btn');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      const ok = await submitToFormspree({
+        form: 'Why-Section Register',
+        name,
+        email,
+        phone
+      });
+
+      if (!ok) {
+        showToast('⚠️ Something went wrong', 'Please try again, or email us directly.');
+        btn.disabled = false;
+        btn.textContent = originalText;
+        return;
+      }
+
       document.getElementById('register2').querySelectorAll('.form-group, button, .form-note').forEach(el => el.style.display = 'none');
       document.getElementById('register2').querySelector('h3').style.display = 'none';
       document.getElementById('register2').querySelector('.sub').style.display = 'none';
@@ -1549,13 +1610,31 @@
       showToast('🎉 Welcome!', 'Your investor profile is live. Check your inbox.');
     }
 
-    function handleNewsletter() {
+    async function handleNewsletter() {
       const email = document.getElementById('nl-email').value.trim();
       if (!email || !email.includes('@')) {
         showToast('⚠️ Invalid email', 'Please enter a valid email address.');
         return;
       }
-      // 👉 CONNECT YOUR NEWSLETTER SERVICE HERE (Mailchimp, ConvertKit, Beehiiv etc.)
+
+      const btn = document.getElementById('nl-submit-btn');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      const ok = await submitToFormspree({
+        form: 'Newsletter Signup',
+        email
+      });
+
+      btn.disabled = false;
+      btn.textContent = originalText;
+
+      if (!ok) {
+        showToast('⚠️ Something went wrong', 'Please try again, or email us directly.');
+        return;
+      }
+
       document.getElementById('nl-email').value = '';
       showToast('✅ Subscribed!', 'You\'re on the list. First deal alert incoming.');
     }
